@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import {
@@ -6,6 +7,26 @@ import {
 } from "@/lib/mdx"
 
 import { MDXComponents } from "@/components/mdx-components"
+
+const PATH = "content\\components\\"
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+
+  const frontmatters = getAllFrontmatter("components")
+  const frontmatter = frontmatters.find(
+    (frontmatter) => frontmatter.slug.replace(PATH, "") === slug
+  )
+
+  return {
+    title: frontmatter?.title,
+    description: frontmatter?.description,
+  }
+}
 
 export default async function Page({
   params
@@ -29,6 +50,6 @@ export const generateStaticParams = async () => {
   const frontmatters = getAllFrontmatter("components")
 
   return frontmatters.map((frontmatter) => ({
-    slug: frontmatter.slug.replace("components/", ""),
+    slug: frontmatter.slug.replace(PATH, ""),
   }))
 }
