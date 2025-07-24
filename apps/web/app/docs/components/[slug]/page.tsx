@@ -7,6 +7,7 @@ import {
 
 import { MDXComponents } from "@/components/mdx-components"
 
+const PATH = "content\\components\\"
 export default async function Page({
   params
 }: {
@@ -29,6 +30,6 @@ export const generateStaticParams = async () => {
   const frontmatters = getAllFrontmatter("components")
 
   return frontmatters.map((frontmatter) => ({
-    slug: frontmatter.slug.replace("components/", ""),
+    slug: frontmatter.slug.replace(PATH, ""),
   }))
 }
