@@ -37,9 +37,7 @@ export default function Layout({
                   </div>
                 </div>
                 <div className="sticky top-[calc(var(--header-height))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
-                  <div className="overflow-y-auto">
-                    <DocsToc />
-                  </div>
+                  <DocsToc />
                 </div>
               </div>
             </div>
@@ -49,9 +47,7 @@ export default function Layout({
       <footer>
         <div className="w-full max-w-9xl mx-auto px-2">
           <div className="h-(--footer-height) flex items-center gap-2 px-2">
-            <div>
-              Footer Area
-            </div>
+            Footer Area
           </div>
         </div>
       </footer>
