@@ -21,7 +21,7 @@ export const DocsToc = () => {
   })
 
   return (
-    <ScrollArea className="w-full h-96">
+    <ScrollArea className="w-full h-96 [&>[data-slot=scroll-area-scrollbar]]:hidden">
       <TableOfContents aria-labelledby="on-this-page-heading">
         <TableOfContentsTitle id="on-this-page-heading" className="sticky top-0 bg-background h-6 text-sm">
           On This Page
