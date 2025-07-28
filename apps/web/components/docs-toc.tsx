@@ -18,26 +18,28 @@ export const DocsToc = () => {
   })
 
   return (
-    <TableOfContentsList className="w-full text-sm text-muted-foreground">
-      <TableOfContentsTitle>
+    <>
+      <TableOfContentsTitle className="text-sm">
         On This Page
       </TableOfContentsTitle>
-      {toc.map((item) => (
-        <TableOfContentsItem key={item.slug} indent>
-          <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
-            {item.text}
-          </TableOfContentsLink>
-          <TableOfContentsList>
-            {item.children.map((child) => (
-              <TableOfContentsItem key={child.slug} indent>
-                <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
-                  {child.text}
-                </TableOfContentsLink>
-              </TableOfContentsItem>
-            ))}
-          </TableOfContentsList>
-        </TableOfContentsItem>
-      ))}
-    </TableOfContentsList>
+      <TableOfContentsList className="w-full text-sm text-muted-foreground">
+        {toc.map((item) => (
+          <TableOfContentsItem key={item.slug} indent>
+            <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
+              {item.text}
+            </TableOfContentsLink>
+            <TableOfContentsList>
+              {item.children.map((child) => (
+                <TableOfContentsItem key={child.slug} indent>
+                  <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
+                    {child.text}
+                  </TableOfContentsLink>
+                </TableOfContentsItem>
+              ))}
+            </TableOfContentsList>
+          </TableOfContentsItem>
+        ))}
+      </TableOfContentsList>
+    </>
   )
 }
