@@ -44,10 +44,7 @@ const TableOfContentsTitle = ({
   const Comp = asChild ? Slot : "p"
 
   return (
-    <Comp
-      className={cn("font-medium text-foreground", className)}
-      {...props}
-    />
+    <Comp className={cn("font-medium text-foreground", className)} {...props} />
   )
 }
 
