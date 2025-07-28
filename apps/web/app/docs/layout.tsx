@@ -19,35 +19,39 @@ export default function Layout({
       }
     >
       <header className="sticky top-0 z-50 w-full">
-        <div>
-          <div className="flex h-(--header-height) items-center gap-2">
+        <div className="w-full max-w-9xl mx-auto px-2">
+          <div className="h-(--header-height) flex items-center gap-2 px-2">
             Header Area
           </div>
         </div>
       </header>
       <main className="flex flex-col flex-1">
-        <SidebarProvider className="min-h-0">
-          <DocsSidebar />
-          <div className="bg-background w-full h-full flex-1">
-            <div className="flex items-stretch text-sm sm:text-base xl:w-full">
-              <div className="flex flex-col flex-1">
-                <div id="content" className="mx-auto flex flex-col w-full max-w-2xl min-w-0">
-                  {children}
+        <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto px-2">
+          <SidebarProvider className="min-h-0">
+            <DocsSidebar />
+            <div className="bg-background w-full h-full flex-1">
+              <div className="flex items-stretch text-sm sm:text-base xl:w-full">
+                <div className="flex flex-col flex-1">
+                  <div id="content" className="mx-auto flex flex-col flex-1 w-full max-w-2xl min-w-0">
+                    {children}
+                  </div>
                 </div>
-              </div>
-              <div className="sticky top-[calc(var(--header-height))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
-                <div className="overflow-y-auto">
-                  <DocsToc />
+                <div className="sticky top-[calc(var(--header-height))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+                  <div className="overflow-y-auto">
+                    <DocsToc />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </SidebarProvider>
+          </SidebarProvider>
+        </div>
       </main>
       <footer>
-        <div>
-          <div className="h-(--footer-height)">
-            Footer Area
+        <div className="w-full max-w-9xl mx-auto px-2">
+          <div className="h-(--footer-height) flex items-center gap-2 px-2">
+            <div>
+              Footer Area
+            </div>
           </div>
         </div>
       </footer>
