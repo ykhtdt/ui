@@ -1,7 +1,10 @@
 "use client"
 
+import { ScrollArea } from "@workspace/ui/components/scroll-area"
+
 import { useToc } from "@/hooks/use-toc"
 import {
+  TableOfContents,
   TableOfContentsList,
   TableOfContentsTitle,
   TableOfContentsItem,
@@ -18,28 +21,30 @@ export const DocsToc = () => {
   })
 
   return (
-    <>
-      <TableOfContentsTitle className="text-sm">
-        On This Page
-      </TableOfContentsTitle>
-      <TableOfContentsList className="w-full text-sm text-muted-foreground">
-        {toc.map((item) => (
-          <TableOfContentsItem key={item.slug} indent>
-            <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
-              {item.text}
-            </TableOfContentsLink>
-            <TableOfContentsList>
-              {item.children.map((child) => (
-                <TableOfContentsItem key={child.slug} indent>
-                  <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
-                    {child.text}
-                  </TableOfContentsLink>
-                </TableOfContentsItem>
-              ))}
-            </TableOfContentsList>
-          </TableOfContentsItem>
-        ))}
-      </TableOfContentsList>
-    </>
+    <ScrollArea className="w-full h-96">
+      <TableOfContents aria-labelledby="on-this-page-heading">
+        <TableOfContentsTitle id="on-this-page-heading" className="sticky top-0 bg-background h-6 text-sm">
+          On This Page
+        </TableOfContentsTitle>
+        <TableOfContentsList className="w-full text-sm text-muted-foreground">
+          {toc.map((item) => (
+            <TableOfContentsItem key={item.slug} indent>
+              <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
+                {item.text}
+              </TableOfContentsLink>
+              <TableOfContentsList>
+                {item.children.map((child) => (
+                  <TableOfContentsItem key={child.slug} indent>
+                    <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
+                      {child.text}
+                    </TableOfContentsLink>
+                  </TableOfContentsItem>
+                ))}
+              </TableOfContentsList>
+            </TableOfContentsItem>
+          ))}
+        </TableOfContentsList>
+      </TableOfContents>
+    </ScrollArea>
   )
 }
