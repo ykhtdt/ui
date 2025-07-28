@@ -24,10 +24,10 @@ export const DocsToc = () => {
       </TableOfContentsTitle>
       {toc.map((item) => (
         <TableOfContentsItem key={item.slug} indent>
+          <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
+            {item.text}
+          </TableOfContentsLink>
           <TableOfContentsList>
-            <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
-              {item.text}
-            </TableOfContentsLink>
             {item.children.map((child) => (
               <TableOfContentsItem key={child.slug} indent>
                 <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
