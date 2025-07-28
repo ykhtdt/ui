@@ -1,84 +1,83 @@
+import { Slot } from "@radix-ui/react-slot"
+
 import { cn } from "@workspace/ui/lib/utils"
 
-interface TableOfContentsListProps extends React.ComponentPropsWithoutRef<"ul"> {
-  ref?: React.Ref<HTMLUListElement>
+type TableOfContentsProps = React.ComponentPropsWithRef<"nav">
+
+const TableOfContents = ({
+  className,
+  children,
+  ...props
+}: TableOfContentsProps) => {
+  return (
+    <aside>
+      <nav className={cn(className)} {...props}>
+        {children}
+      </nav>
+    </aside>
+  )
+}
+
+interface TableOfContentsListProps extends React.ComponentPropsWithRef<"ul"> {
   indent?: boolean
 }
 
 const TableOfContentsList = ({
-  ref,
   indent,
   className,
   ...props
 }: TableOfContentsListProps) => {
   return (
-    <ul
-      ref={ref}
-      className={cn("list-none", indent && "pl-4", className)}
-      {...props}
-    />
+    <ul className={cn("list-none", indent && "pl-4", className)} {...props} />
   )
 }
 
-interface TableOfContentsTitleProps extends React.ComponentPropsWithoutRef<"p"> {
-  ref?: React.Ref<HTMLParagraphElement>
+interface TableOfContentsTitleProps extends React.ComponentPropsWithRef<"p"> {
+  asChild?: boolean
 }
 
 const TableOfContentsTitle = ({
-  ref,
+  asChild = false,
   className,
   ...props
 }: TableOfContentsTitleProps) => {
+  const Comp = asChild ? Slot : "p"
+
   return (
-    <p
-      ref={ref}
-      className={cn("font-medium text-foreground mb-2", className)}
-      {...props}
-    />
+    <Comp className={cn("font-medium text-foreground", className)} {...props} />
   )
 }
 
-interface TableOfContentsItemProps extends React.ComponentPropsWithoutRef<"li"> {
-  ref?: React.Ref<HTMLLIElement>
+interface TableOfContentsItemProps extends React.ComponentPropsWithRef<"li"> {
   indent?: boolean
 }
 
 const TableOfContentsItem = ({
-  ref,
   indent,
   className,
   ...props
 }: TableOfContentsItemProps) => {
   return (
-    <li
-      ref={ref}
-      className={cn("pt-2", indent && "ml-4", className)}
-      {...props}
-    />
+    <li className={cn("pt-2", indent && "ml-4", className)} {...props} />
   )
 }
 
-interface TableOfContentsLinkProps extends React.ComponentPropsWithoutRef<"a"> {
-  ref?: React.Ref<HTMLAnchorElement>
+interface TableOfContentsLinkProps extends React.ComponentPropsWithRef<"a"> {
   isActive?: boolean
 }
 
 const TableOfContentsLink = ({
-  ref,
   isActive,
   className,
   ...props
 }: TableOfContentsLinkProps) => {
   return (
-    <a
-      ref={ref}
-      className={cn(isActive && "text-foreground", className)}
-      {...props}
-    />
+    <a className={cn(isActive && "text-foreground", className)} {...props} />
   )
 }
 
 export {
+  TableOfContents,
   TableOfContentsList,
   TableOfContentsTitle,
   TableOfContentsItem,

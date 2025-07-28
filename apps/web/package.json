@@ -12,7 +12,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.1.2",
     "@workspace/ui": "workspace:*",
+    "github-slugger": "^2.0.0",
     "glob": "^11.0.3",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.475.0",
