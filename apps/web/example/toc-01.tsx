@@ -1,4 +1,5 @@
 import {
+  TableOfContents,
   TableOfContentsList,
   TableOfContentsTitle,
   TableOfContentsItem,
@@ -7,32 +8,34 @@ import {
 
 export const ExampleTOC01 = () => {
   return (
-    <TableOfContentsList className="w-full text-sm text-muted-foreground">
+    <TableOfContents>
       <TableOfContentsTitle>
         On This Page
       </TableOfContentsTitle>
-      <TableOfContentsItem>
-        <TableOfContentsLink href="#introduction">
-          Introduction
-        </TableOfContentsLink>
-      </TableOfContentsItem>
-      <TableOfContentsItem indent>
-        <TableOfContentsList>
-          <TableOfContentsLink href="#features">
-            Features
+      <TableOfContentsList className="w-full text-sm text-muted-foreground">
+        <TableOfContentsItem>
+          <TableOfContentsLink href="#introduction">
+            Introduction
           </TableOfContentsLink>
-          <TableOfContentsItem indent>
-            <TableOfContentsLink href="#customization">
-              Customization
+        </TableOfContentsItem>
+        <TableOfContentsItem indent>
+          <TableOfContentsList>
+            <TableOfContentsLink href="#features">
+              Features
             </TableOfContentsLink>
-          </TableOfContentsItem>
-        </TableOfContentsList>
-      </TableOfContentsItem>
-      <TableOfContentsItem>
-        <TableOfContentsLink href="#installation">
-          Installation
-        </TableOfContentsLink>
-      </TableOfContentsItem>
-    </TableOfContentsList>
+            <TableOfContentsItem indent>
+              <TableOfContentsLink href="#customization">
+                Customization
+              </TableOfContentsLink>
+            </TableOfContentsItem>
+          </TableOfContentsList>
+        </TableOfContentsItem>
+        <TableOfContentsItem>
+          <TableOfContentsLink href="#installation">
+            Installation
+          </TableOfContentsLink>
+        </TableOfContentsItem>
+      </TableOfContentsList>
+    </TableOfContents>
   )
 }
