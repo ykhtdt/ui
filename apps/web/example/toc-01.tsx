@@ -12,17 +12,17 @@ export const ExampleTOC01 = () => {
       <TableOfContentsTitle>
         On This Page
       </TableOfContentsTitle>
-      <TableOfContentsList className="w-full text-sm text-muted-foreground">
-        <TableOfContentsItem>
+      <TableOfContentsList>
+        <TableOfContentsItem indent>
           <TableOfContentsLink href="#introduction">
             Introduction
           </TableOfContentsLink>
         </TableOfContentsItem>
         <TableOfContentsItem indent>
+          <TableOfContentsLink href="#features">
+            Features
+          </TableOfContentsLink>
           <TableOfContentsList>
-            <TableOfContentsLink href="#features">
-              Features
-            </TableOfContentsLink>
             <TableOfContentsItem indent>
               <TableOfContentsLink href="#customization">
                 Customization
@@ -30,7 +30,7 @@ export const ExampleTOC01 = () => {
             </TableOfContentsItem>
           </TableOfContentsList>
         </TableOfContentsItem>
-        <TableOfContentsItem>
+        <TableOfContentsItem indent>
           <TableOfContentsLink href="#installation">
             Installation
           </TableOfContentsLink>
