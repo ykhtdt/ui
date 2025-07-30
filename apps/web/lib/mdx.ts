@@ -7,6 +7,7 @@ import matter from "gray-matter"
 import { globSync } from "glob"
 import { bundleMDX } from "mdx-bundler"
 import rehypePrettyCode from "rehype-pretty-code"
+import { visit } from "unist-util-visit"
 
 import type { Frontmatter } from "@/types/frontmatter"
 
@@ -45,6 +46,7 @@ export const getBundleMDX = async (category: string, slug: string) => {
             keepBackground: false,
           },
         ],
+        rehypeMetaAttributes,
       ]
       return options
     },
@@ -53,6 +55,45 @@ export const getBundleMDX = async (category: string, slug: string) => {
   return {
     frontmatter: source.frontmatter,
     code
+  }
+}
+
+const parseMetaString = (metaString: string): Record<string, string> => {
+  const metaAttributes: Record<string, string> = {}
+
+  const pattern = /\b([-\w]+)(?:=(?:"([^"]*)"|'([^']*)'|([^"'\s]+)))?/g
+
+  let match: RegExpExecArray | null
+
+  while ((match = pattern.exec(metaString)) !== null) {
+    const key = match[1]
+    const value = match[2] || match[3] || match[4] || "true"
+
+    if (key) {
+      metaAttributes[key] = value
+    }
+  }
+
+  return metaAttributes
+}
+
+const rehypeMetaAttributes = () => {
+  return (tree: any) => {
+    visit(tree, "element", (node: any) => {
+      if (node.tagName === "code" && node.data?.meta) {
+        if (!node.properties) {
+          node.properties = {}
+        }
+
+        node.properties["data-meta"] = node.data.meta
+
+        const metaObject = parseMetaString(node.data.meta)
+
+        Object.entries(metaObject).forEach(([key, value]) => {
+          node.properties[`data-${key}`] = value
+        })
+      }
+    })
   }
 }
 
