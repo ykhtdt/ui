@@ -6,6 +6,7 @@ import path from "path"
 import matter from "gray-matter"
 import { globSync } from "glob"
 import { bundleMDX } from "mdx-bundler"
+import rehypePrettyCode from "rehype-pretty-code"
 
 import type { Frontmatter } from "@/types/frontmatter"
 
@@ -30,7 +31,23 @@ export const getBundleMDX = async (category: string, slug: string) => {
 
   const { code } = await bundleMDX({
     source: source.content,
-    cwd: process.cwd()
+    cwd: process.cwd(),
+    mdxOptions(options) {
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        [
+          rehypePrettyCode,
+          {
+            theme: {
+              dark: "github-dark",
+              light: "github-light",
+            },
+            keepBackground: false,
+          },
+        ],
+      ]
+      return options
+    },
   })
 
   return {
