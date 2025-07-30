@@ -1,31 +1,17 @@
-# shadcn/ui monorepo template
+# UI
 
-This template is for creating a monorepo with shadcn/ui.
+A monorepo project based on [shadcn/ui monorepo](https://ui.shadcn.com/docs/monorepo), providing documented and reusable UI components with Next.js.
 
-## Usage
-
-```bash
-pnpm dlx shadcn@latest init
-```
-
-## Adding components
-
-To add components to your app, run the following command at the root of your `web` app:
+## Getting Started
 
 ```bash
-pnpm dlx shadcn@latest add button -c apps/web
+# Install dependencies
+pnpm install
+
+# Run development server
+pnpm dev
 ```
 
-This will place the ui components in the `packages/ui/src/components` directory.
+## Documentation
 
-## Tailwind
-
-Your `tailwind.config.ts` and `globals.css` are already set up to use the components from the `ui` package.
-
-## Using components
-
-To use the components in your app, import them from the `ui` package.
-
-```tsx
-import { Button } from "@workspace/ui/components/button"
-```
+Component documentation is written using MDX and can be found in the `apps/web/content` directory.
