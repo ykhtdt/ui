@@ -21,7 +21,7 @@ export const DocsToc = () => {
   })
 
   return (
-    <ScrollArea className="w-full h-96">
+    <ScrollArea className="w-full max-h-[50vh] [&>[data-slot=scroll-area-scrollbar]]:hidden">
       <TableOfContents aria-labelledby="on-this-page-heading">
         <TableOfContentsTitle id="on-this-page-heading" className="sticky top-0 bg-background h-6 text-sm">
           On This Page
@@ -32,15 +32,17 @@ export const DocsToc = () => {
               <TableOfContentsLink href={`#${item.slug}`} isActive={activeId === item.slug}>
                 {item.text}
               </TableOfContentsLink>
-              <TableOfContentsList>
-                {item.children.map((child) => (
-                  <TableOfContentsItem key={child.slug} indent>
-                    <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
-                      {child.text}
-                    </TableOfContentsLink>
-                  </TableOfContentsItem>
-                ))}
-              </TableOfContentsList>
+              {item.children.length > 0 && (
+                <TableOfContentsList>
+                  {item.children.map((child) => (
+                    <TableOfContentsItem key={child.slug} indent>
+                      <TableOfContentsLink href={`#${child.slug}`} isActive={activeId === child.slug}>
+                        {child.text}
+                      </TableOfContentsLink>
+                    </TableOfContentsItem>
+                  ))}
+                </TableOfContentsList>
+              )}
             </TableOfContentsItem>
           ))}
         </TableOfContentsList>

@@ -1,4 +1,5 @@
 import {
+  TableOfContents,
   TableOfContentsList,
   TableOfContentsTitle,
   TableOfContentsItem,
@@ -7,32 +8,34 @@ import {
 
 export const ExampleTOC01 = () => {
   return (
-    <TableOfContentsList className="w-full text-sm text-muted-foreground">
+    <TableOfContents>
       <TableOfContentsTitle>
         On This Page
       </TableOfContentsTitle>
-      <TableOfContentsItem>
-        <TableOfContentsLink href="#introduction">
-          Introduction
-        </TableOfContentsLink>
-      </TableOfContentsItem>
-      <TableOfContentsItem indent>
-        <TableOfContentsList>
+      <TableOfContentsList>
+        <TableOfContentsItem indent>
+          <TableOfContentsLink href="#introduction">
+            Introduction
+          </TableOfContentsLink>
+        </TableOfContentsItem>
+        <TableOfContentsItem indent>
           <TableOfContentsLink href="#features">
             Features
           </TableOfContentsLink>
-          <TableOfContentsItem indent>
-            <TableOfContentsLink href="#customization">
-              Customization
-            </TableOfContentsLink>
-          </TableOfContentsItem>
-        </TableOfContentsList>
-      </TableOfContentsItem>
-      <TableOfContentsItem>
-        <TableOfContentsLink href="#installation">
-          Installation
-        </TableOfContentsLink>
-      </TableOfContentsItem>
-    </TableOfContentsList>
+          <TableOfContentsList>
+            <TableOfContentsItem indent>
+              <TableOfContentsLink href="#customization">
+                Customization
+              </TableOfContentsLink>
+            </TableOfContentsItem>
+          </TableOfContentsList>
+        </TableOfContentsItem>
+        <TableOfContentsItem indent>
+          <TableOfContentsLink href="#installation">
+            Installation
+          </TableOfContentsLink>
+        </TableOfContentsItem>
+      </TableOfContentsList>
+    </TableOfContents>
   )
 }

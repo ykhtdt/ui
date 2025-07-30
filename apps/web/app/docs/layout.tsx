@@ -1,7 +1,11 @@
+import { ArrowUpIcon } from "lucide-react"
+
 import { SidebarProvider } from "@workspace/ui/components/sidebar"
 
+import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
 import { DocsToc } from "@/components/docs-toc"
+import { ScrollToTopButton } from "@/components/scroll-top"
 
 export default function Layout({
   children,
@@ -21,7 +25,7 @@ export default function Layout({
       <header className="sticky top-0 z-50 w-full">
         <div className="w-full max-w-9xl mx-auto px-2">
           <div className="h-(--header-height) flex items-center gap-2 px-2">
-            Header Area
+            <ModeToggle />
           </div>
         </div>
       </header>
@@ -38,6 +42,16 @@ export default function Layout({
                 </div>
                 <div className="sticky top-[calc(var(--header-height))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
                   <DocsToc />
+                  <div className="self-start">
+                    <ScrollToTopButton
+                      variant="ghost"
+                      size="sm"
+                      className="items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-transparent dark:hover:bg-transparent"
+                    >
+                      <span>Scroll to top</span>
+                      <ArrowUpIcon />
+                    </ScrollToTopButton>
+                  </div>
                 </div>
               </div>
             </div>

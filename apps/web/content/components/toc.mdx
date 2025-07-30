@@ -2,47 +2,122 @@
 title: Table of Contents
 description: A list of the main contents of a document.
 publishedAt: 2025-07-22
+updatedAt: 2025-07-30
 ---
 
 import { ExampleTOC01 } from "@/example/toc-01"
 
 # Table of Contents
 
-The table of contents component helps users navigate easily by listing the main contents of a document.
+A list of the main contents of a document.
+
+## Structure
+
+The `Table of Contents` component consists of the following components:
+
+- `TableOfContents` - Container for the table of contents.
+- `TableOfContentsList` - Wrapper for table of contents items.
+- `TableOfContentsTitle` - Displays the table of contents title.
+- `TableOfContentsItem` - Individual table of contents entry.
+- `TableOfContentsLink` - Navigation link for table of contents items.
+
+When properly implemented, the component creates the following Semantic HTML structure:
+
+```html
+<aside>
+  <nav>
+    <p>On This Page</p>
+    <ul>
+      <li>
+        <a href="#introduction">Introduction</a>
+      </li>
+      <li>
+        <a href="#usage">Usage Guide</a>
+        <ul>
+          <li>
+            <a href="#installation">Installation</a>
+          </li>
+          <li>
+            <a href="#configuration">Configuration</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#examples">Examples</a>
+      </li>
+    </ul>
+  </nav>
+</aside>
+```
 
 ## Usage
 
 ```tsx
 import {
+  TableOfContents,
   TableOfContentsList,
   TableOfContentsTitle,
   TableOfContentsItem,
   TableOfContentsLink,
 } from "@/ui/toc"
+
+<TableOfContents>
+  <TableOfContentsTitle>
+    On This Page
+  </TableOfContentsTitle>
+  <TableOfContentsList>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#introduction">
+        Introduction
+      </TableOfContentsLink>
+    </TableOfContentsItem>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#features">
+        Features
+      </TableOfContentsLink>
+      <TableOfContentsList>
+        <TableOfContentsItem indent>
+          <TableOfContentsLink href="#customization">
+            Customization
+          </TableOfContentsLink>
+        </TableOfContentsItem>
+      </TableOfContentsList>
+    </TableOfContentsItem>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#installation">
+        Installation
+      </TableOfContentsLink>
+    </TableOfContentsItem>
+  </TableOfContentsList>
+</TableOfContents>
 ```
 
 ## Components
 
-### TableOfContentsList
+### TableOfContents
 
-A container that wraps the table of contents items.
+The main container component that wraps the entire table of contents. It renders as an `<aside>` element containing a `<nav>` for semantic HTML structure.
 
 ### TableOfContentsTitle
 
-Displays the title of the table of contents.
+Displays the title of the table of contents. It renders as a `<p>` element by default, but can be rendered as any element using the `asChild` prop. 
+
+When used in document pages, it's recommended to use an appropriate heading tag based on your page's heading hierarchy to maintain proper document outline and accessibility. This ensures that the TOC title fits appropriately within the page's structure while serving as a navigation aid.
+
+### TableOfContentsList
+
+A list container that wraps table of contents items. It renders as a `<ul>` element and supports indentation for nested items.
 
 ### TableOfContentsItem
 
-Represents an individual table of contents item.
+Represents an individual table of contents item. It renders as a `<li>` element and supports indentation for nested hierarchies.
 
 ### TableOfContentsLink
 
-Provides a link for the table of contents item.
+Provides a navigation link for table of contents items. It renders as an `<a>` element and supports active state styling with the `isActive` prop.
 
 ## Examples
 
+```tsx live=true
 <ExampleTOC01 />
-
-## Notes
-
-This document will be updated with more detailed content in the future.
+```
