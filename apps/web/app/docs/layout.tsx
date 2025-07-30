@@ -1,5 +1,6 @@
 import { SidebarProvider } from "@workspace/ui/components/sidebar"
 
+import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
 import { DocsToc } from "@/components/docs-toc"
 
@@ -21,7 +22,7 @@ export default function Layout({
       <header className="sticky top-0 z-50 w-full">
         <div className="w-full max-w-9xl mx-auto px-2">
           <div className="h-(--header-height) flex items-center gap-2 px-2">
-            Header Area
+            <ModeToggle />
           </div>
         </div>
       </header>
