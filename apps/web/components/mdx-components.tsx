@@ -70,7 +70,7 @@ const components: MDXContentProps["components"] = {
       {children}
     </li>
   ),
-  code: ({ children, ...props }: React.ComponentProps<"code">) => (
+  code: ({ children, ...props }: React.ComponentProps<"code"> & { "data-live"?: string }) => (
     <code
       className="rounded-md bg-muted font-mono text-xs [p_&]:text-xs py-0.75 px-1.25"
       {...props}
