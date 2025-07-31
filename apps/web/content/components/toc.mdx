@@ -119,5 +119,33 @@ Provides a navigation link for table of contents items. It renders as an `<a>` e
 ## Examples
 
 ```tsx live=true
-<ExampleTOC01 />
+<TableOfContents>
+  <TableOfContentsTitle>
+    On This Page
+  </TableOfContentsTitle>
+  <TableOfContentsList>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#">
+        Introduction
+      </TableOfContentsLink>
+    </TableOfContentsItem>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#">
+        Features
+      </TableOfContentsLink>
+      <TableOfContentsList>
+        <TableOfContentsItem indent>
+          <TableOfContentsLink href="#">
+            Customization
+          </TableOfContentsLink>
+        </TableOfContentsItem>
+      </TableOfContentsList>
+    </TableOfContentsItem>
+    <TableOfContentsItem indent>
+      <TableOfContentsLink href="#">
+        Installation
+      </TableOfContentsLink>
+    </TableOfContentsItem>
+  </TableOfContentsList>
+</TableOfContents>
 ```
