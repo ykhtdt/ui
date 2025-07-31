@@ -15,6 +15,7 @@ export default function Layout({
   return (
     <div className="fixed inset-0 p-1">
       <div
+        id="container"
         className="relative flex h-[calc(100svh-var(--spacing)*2)] flex-col rounded-md overflow-y-auto"
         style={
           {
@@ -45,6 +46,7 @@ export default function Layout({
                     <DocsToc />
                     <div className="self-start">
                       <ScrollToTopButton
+                        container="#container"
                         variant="ghost"
                         size="sm"
                         className="items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-transparent dark:hover:bg-transparent"
