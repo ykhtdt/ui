@@ -30,7 +30,7 @@ export default function Layout({
             </div>
           </div>
         </header>
-        <main className="flex flex-col flex-1">
+        <main className="flex flex-col flex-1 bg-background">
           <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto">
             <SidebarProvider className="min-h-0 bg-background">
               <DocsSidebar />
