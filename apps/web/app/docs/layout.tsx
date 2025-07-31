@@ -22,7 +22,7 @@ export default function Layout({
         } as React.CSSProperties
       }
     >
-      <header className="sticky top-0 z-50 w-full">
+      <header className="sticky top-0 z-50 w-full bg-background">
         <div className="w-full max-w-9xl mx-auto px-2">
           <div className="h-(--header-height) flex items-center gap-2 px-2">
             <ModeToggle />
@@ -30,8 +30,8 @@ export default function Layout({
         </div>
       </header>
       <main className="flex flex-col flex-1">
-        <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto px-2">
-          <SidebarProvider className="min-h-0">
+        <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto">
+          <SidebarProvider className="min-h-0 bg-background">
             <DocsSidebar />
             <div className="bg-background w-full h-full flex-1">
               <div className="flex items-stretch text-sm sm:text-base xl:w-full">
@@ -58,7 +58,7 @@ export default function Layout({
           </SidebarProvider>
         </div>
       </main>
-      <footer>
+      <footer className="bg-background">
         <div className="w-full max-w-9xl mx-auto px-2">
           <div className="h-(--footer-height) flex items-center gap-2 px-2">
             Footer Area
