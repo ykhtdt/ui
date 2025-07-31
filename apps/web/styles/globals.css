@@ -5,7 +5,7 @@
 }
 
 .dark {
-  --page-background: oklch(0.25 0.02 65);
+  --page-background: oklch(0.125 0.05 90);
 }
 
 @theme {
