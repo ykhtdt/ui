@@ -78,14 +78,22 @@ const components: MDXContentProps["components"] = {
     const isLiveCode = React.isValidElement(children) && children.props?.["data-live"] === "true"
 
     if (isLiveCode) {
-      return children
+      return (
+        <div className="flex mt-6 h-96">
+          {children}
+        </div>
+      )
     }
 
     return (
-      <pre
-        className="rounded-md bg-muted p-4 mt-6 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono"
-        {...props}
-      />
+      <div className="flex mt-6 h-96">
+        <div className="flex flex-1 rounded-md overflow-hidden">
+          <pre
+            className="flex flex-1 bg-muted p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono"
+            {...props}
+          />
+        </div>
+      </div>
     )
   },
 }
