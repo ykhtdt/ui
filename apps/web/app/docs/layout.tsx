@@ -16,7 +16,7 @@ export default function Layout({
     <div className="fixed inset-0 p-1">
       <div
         id="container"
-        className="relative flex h-[calc(100svh-var(--spacing)*2)] flex-col rounded-md overflow-y-auto"
+        className="relative flex h-[calc(100svh-var(--spacing)*2)] flex-col overflow-y-auto md:rounded-md"
         style={
           {
             "--header-height": "calc(var(--spacing)*14)",
@@ -25,20 +25,20 @@ export default function Layout({
         }
       >
         <header className="sticky top-0 z-50 w-full bg-background">
-          <div className="w-full max-w-9xl mx-auto px-2">
-            <div className="h-(--header-height) flex items-center gap-2 px-2">
+          <div className="w-full max-w-9xl mx-auto px-4 sm:px-2">
+            <div className="h-(--header-height) flex items-center gap-2">
               <ModeToggle />
             </div>
           </div>
         </header>
         <main className="flex flex-col flex-1 bg-background">
-          <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto">
+          <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto px-4 sm:px-2 md:px-0">
             <SidebarProvider className="min-h-0 bg-background">
               <DocsSidebar />
-              <div className="bg-background w-full h-full flex-1">
+              <div className="bg-background w-full h-full flex-1 md:px-2 lg:px-0">
                 <div className="flex items-stretch text-sm sm:text-base xl:w-full">
                   <div className="flex flex-col flex-1">
-                    <div id="content" className="mx-auto flex flex-col flex-1 w-full max-w-2xl min-w-0">
+                    <div id="content" className="mx-auto flex flex-col flex-1 w-full sm:max-w-2xl min-w-0">
                       {children}
                     </div>
                   </div>
