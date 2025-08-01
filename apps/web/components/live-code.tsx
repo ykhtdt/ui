@@ -95,8 +95,8 @@ export const LiveCode = ({
         </div>
       </TabsContent>
       <TabsContent value="code" className="flex flex-1 overflow-y-auto rounded-md bg-muted">
-        <div className="flex flex-col flex-1">
-          <pre className="p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono">
+        <div className="flex flex-1 min-w-0 overflow-hidden">
+          <pre className="w-0 flex-1 p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono">
             <code {...rest}>
               {children}
             </code>
