@@ -87,9 +87,9 @@ const components: MDXContentProps["components"] = {
 
     return (
       <div className="flex mt-6 h-96">
-        <div className="flex flex-1 rounded-md overflow-hidden">
+        <div className="flex flex-1 rounded-md min-w-0 overflow-hidden">
           <pre
-            className="flex flex-1 bg-muted p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono"
+            className="w-0 flex-1 bg-muted p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono"
             {...props}
           />
         </div>
