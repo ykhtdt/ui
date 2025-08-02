@@ -8,8 +8,6 @@ import {
 
 import { MDXComponents } from "@/components/mdx-components"
 
-const PATH = "content\\components\\"
-
 export default async function Page({
   params
 }: {
@@ -37,7 +35,7 @@ export async function generateMetadata({
 
   const frontmatters = getAllFrontmatter("components")
   const frontmatter = frontmatters.find(
-    (frontmatter) => frontmatter.slug.replace(PATH, "") === slug
+    (frontmatter) => (frontmatter.slug.split("/").pop() || "") === slug
   )
 
   return {
@@ -46,11 +44,10 @@ export async function generateMetadata({
   }
 }
 
-
 export const generateStaticParams = async () => {
   const frontmatters = getAllFrontmatter("components")
 
   return frontmatters.map((frontmatter) => ({
-    slug: frontmatter.slug.replace(PATH, ""),
+    slug: frontmatter.slug.split("/").pop() || "",
   }))
 }
