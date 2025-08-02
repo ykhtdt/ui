@@ -63,8 +63,8 @@ export default function Layout({
         </main>
         <footer className="bg-background">
           <div className="w-full max-w-9xl mx-auto px-2">
-            <div className="h-(--footer-height) flex items-center gap-2 px-2">
-              Footer Area
+            <div className="h-(--footer-height) flex items-center justify-center gap-2 px-2">
+              {/* Footer */}
             </div>
           </div>
         </footer>
