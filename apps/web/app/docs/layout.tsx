@@ -16,11 +16,12 @@ export default function Layout({
     <div className="fixed inset-0 p-1">
       <div
         id="container"
-        className="relative flex h-[calc(100svh-var(--spacing)*2)] flex-col overflow-y-auto md:rounded-md"
+        className="relative flex h-svh flex-col overflow-y-auto md:rounded-md"
         style={
           {
             "--header-height": "calc(var(--spacing)*14)",
             "--footer-height": "calc(var(--spacing)*20)",
+            "--top-spacing": "calc(var(--spacing)*4)",
           } as React.CSSProperties
         }
       >
@@ -32,6 +33,7 @@ export default function Layout({
           </div>
         </header>
         <main className="flex flex-col flex-1 bg-background">
+          <div className="h-[var(--top-spacing)] shrink-0" />
           <div className="flex flex-col flex-1 w-full max-w-9xl mx-auto px-4 sm:px-2 md:px-0">
             <SidebarProvider className="min-h-0 bg-background">
               <DocsSidebar />
@@ -42,7 +44,7 @@ export default function Layout({
                       {children}
                     </div>
                   </div>
-                  <div className="sticky top-[calc(var(--header-height))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height)-var(--spacing)*2)] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
+                  <div className="sticky top-[calc(var(--header-height)+var(--top-spacing))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height)-var(--top-spacing))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
                     <DocsToc />
                     <div className="self-start">
                       <ScrollToTopButton
