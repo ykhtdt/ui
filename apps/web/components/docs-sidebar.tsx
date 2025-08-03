@@ -31,7 +31,7 @@ export function DocsSidebar() {
   const pathname = usePathname()
 
   return (
-    <Sidebar className="sticky top-[calc(var(--header-height))] h-[calc(100svh-var(--header-height)-var(--footer-height)-var(--spacing)*2)] border-none">
+    <Sidebar className="sticky top-[calc(var(--header-height)+var(--top-spacing))] h-[calc(100svh-var(--header-height)-var(--footer-height)-var(--top-spacing))] border-none">
       <SidebarContent className="no-scrollbar bg-background">
         {items.map((item) => (
           <SidebarGroup key={item.title}>
