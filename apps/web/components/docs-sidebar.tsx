@@ -23,6 +23,10 @@ const items = [
         title: "Table of Contents",
         url: "/docs/components/toc",
       },
+      {
+        title: "Navigation Drawer",
+        url: "/docs/components/navigation-drawer",
+      },
     ],
   }
 ]
