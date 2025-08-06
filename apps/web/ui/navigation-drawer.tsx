@@ -68,6 +68,7 @@ const NavigationDrawerContent = ({
       <NavigationDrawerOverlay />
       <NavigationDrawerPrimitive.Content
         data-slot="navigation-drawer-content"
+        onOpenAutoFocus={(event) => event.preventDefault()}
         className={cn(
           "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
           "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
