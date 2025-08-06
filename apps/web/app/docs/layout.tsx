@@ -4,13 +4,14 @@ import { SidebarProvider } from "@workspace/ui/components/sidebar"
 
 import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
-import { DocsToc } from "@/components/docs-toc"
 import { ScrollToTopButton } from "@/components/scroll-top"
 
 export default function Layout({
   children,
+  toc,
 }: {
   children: React.ReactNode
+  toc: React.ReactNode
 }) {
   return (
     <div className="fixed inset-0 p-1">
@@ -45,7 +46,7 @@ export default function Layout({
                     </div>
                   </div>
                   <div className="sticky top-[calc(var(--header-height)+var(--top-spacing))] z-30 ml-auto hidden h-[calc(100svh-var(--header-height)-var(--footer-height)-var(--top-spacing))] w-72 flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
-                    <DocsToc />
+                    {toc}
                     <div className="self-start">
                       <ScrollToTopButton
                         container="#container"
