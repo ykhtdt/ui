@@ -25,7 +25,7 @@ export const MobileMenu = () => {
     <NavigationDrawer>
       <NavigationDrawerTrigger />
       <NavigationDrawerContent>
-        <NavigationDrawerHeader className="border-b flex-shrink-0">
+        <NavigationDrawerHeader className="border-b">
           <NavigationDrawerTitle>eXpandable UI</NavigationDrawerTitle>
           <NavigationDrawerDescription />
         </NavigationDrawerHeader>
@@ -55,7 +55,7 @@ export const MobileMenu = () => {
             </NavigationDrawerGroup>
           ))}
         </ScrollArea>
-        <NavigationDrawerFooter className="border-t flex-shrink-0">
+        <NavigationDrawerFooter className="border-t">
           {/* <ModeToggle /> */}
         </NavigationDrawerFooter>
       </NavigationDrawerContent>
