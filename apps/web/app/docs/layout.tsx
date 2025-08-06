@@ -1,5 +1,3 @@
-import Link from "next/link"
-
 import { ArrowUpIcon } from "lucide-react"
 
 import { SidebarProvider } from "@workspace/ui/components/sidebar"
@@ -7,104 +5,7 @@ import { SidebarProvider } from "@workspace/ui/components/sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
 import { ScrollToTopButton } from "@/components/scroll-top"
-
-import {
-  NavigationDrawer,
-  NavigationDrawerTrigger,
-  NavigationDrawerContent,
-  NavigationDrawerHeader,
-  NavigationDrawerTitle,
-  NavigationDrawerDescription,
-  NavigationDrawerGroup,
-  NavigationDrawerGroupLabel,
-  NavigationDrawerGroupContent,
-  NavigationDrawerMenu,
-  NavigationDrawerMenuItem,
-  NavigationDrawerMenuButton,
-  NavigationDrawerFooter,
-} from "@/ui/navigation-drawer"
-
-const items = [
-  {
-    title: "Components",
-    url: "/docs/components",
-    children: [
-      {
-        title: "Table of Contents",
-        url: "/docs/components/toc",
-      },
-      {
-        title: "Navigation Drawer",
-        url: "/docs/components/navigation-drawer",
-      },
-    ],
-  },
-  {
-    title: "Layouts",
-    url: "/docs/layouts",
-    children: [],
-  },
-  {
-    title: "Layouts1",
-    url: "/docs/layouts1",
-    children: [],
-  },
-  {
-    title: "Layouts2",
-    url: "/docs/layouts2",
-    children: [],
-  },
-  {
-    title: "Layouts3",
-    url: "/docs/layouts3",
-    children: [],
-  },
-  {
-    title: "Layouts4",
-    url: "/docs/layouts4",
-    children: [],
-  },
-  {
-    title: "Layouts5",
-    url: "/docs/layouts5",
-    children: [],
-  },
-  {
-    title: "Layouts6",
-    url: "/docs/layouts6",
-    children: [],
-  },
-  {
-    title: "Layouts7",
-    url: "/docs/layouts7",
-    children: [],
-  },
-  {
-    title: "Layouts8",
-    url: "/docs/layouts8",
-    children: [],
-  },
-  {
-    title: "Layouts9",
-    url: "/docs/layouts9",
-    children: [],
-  },
-  {
-    title: "Layouts10",
-    url: "/docs/layouts10",
-    children: [],
-  },
-  {
-    title: "Layouts11",
-    url: "/docs/layouts11",
-    children: [],
-  },
-  {
-    title: "Layouts12",
-    url: "/docs/layouts12",
-    children: [],
-  },
-]
+import { MobileMenu } from "@/components/mobile-menu"
 
 export default function Layout({
   children,
@@ -129,40 +30,7 @@ export default function Layout({
         <header className="sticky top-0 z-50 w-full bg-background">
           <div className="w-full max-w-9xl mx-auto px-4 sm:px-2">
             <div className="h-(--header-height) flex items-center gap-2">
-              <NavigationDrawer>
-                <NavigationDrawerTrigger />
-                <NavigationDrawerContent>
-                  <NavigationDrawerHeader>
-                    <NavigationDrawerTitle>eXpandable UI</NavigationDrawerTitle>
-                    <NavigationDrawerDescription />
-                  </NavigationDrawerHeader>
-                  {items.map((item) => (
-                    <NavigationDrawerGroup key={item.title}>
-                      <NavigationDrawerGroupLabel>
-                        {item.title}
-                      </NavigationDrawerGroupLabel>
-                      <NavigationDrawerGroupContent>
-                        <NavigationDrawerMenu>
-                          {item.children.map((child) => (
-                            <NavigationDrawerMenuItem key={child.title}>
-                              <NavigationDrawerMenuButton asChild>
-                                <Link href={child.url}>
-                                  <span>
-                                    {child.title}
-                                  </span>
-                                </Link>
-                              </NavigationDrawerMenuButton>
-                            </NavigationDrawerMenuItem>
-                          ))}
-                        </NavigationDrawerMenu>
-                      </NavigationDrawerGroupContent>
-                    </NavigationDrawerGroup>
-                  ))}
-                  <NavigationDrawerFooter className="border-t">
-                    {/* <ModeToggle /> */}
-                  </NavigationDrawerFooter>
-                </NavigationDrawerContent>
-              </NavigationDrawer>
+              <MobileMenu />
               <ModeToggle />
             </div>
           </div>
