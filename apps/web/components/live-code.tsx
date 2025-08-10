@@ -6,6 +6,7 @@ import {
   LiveError,
 } from "react-live"
 
+import { cn } from "@workspace/ui/lib/utils"
 import {
   Tabs,
   TabsContent,
@@ -13,25 +14,27 @@ import {
   TabsTrigger,
 } from "@workspace/ui/components/tabs"
 
-import {
-  TableOfContents,
-  TableOfContentsList,
-  TableOfContentsTitle,
-  TableOfContentsItem,
-  TableOfContentsLink,
-} from "@/ui/toc"
+import { liveCodeScope } from "@/lib/live-scope"
+import { NavigationDrawerTrigger as BaseNavigationDrawerTrigger } from "@/ui/navigation-drawer"
 
 interface LiveCodeProps extends React.ComponentProps<"code"> {
   "data-live"?: string
 }
 
+const DemoNavigationDrawerTrigger = (
+  { className, ...props }: React.ComponentProps<typeof BaseNavigationDrawerTrigger>
+) => {
+  return (
+    <BaseNavigationDrawerTrigger
+      className={cn("md:!inline-flex", className)}
+      {...props}
+    />
+  )
+}
+
 const scope = {
-  React,
-  TableOfContents,
-  TableOfContentsList,
-  TableOfContentsTitle,
-  TableOfContentsItem,
-  TableOfContentsLink,
+  ...liveCodeScope,
+  NavigationDrawerTrigger: DemoNavigationDrawerTrigger,
 }
 
 export const LiveCode = ({
