@@ -1,10 +1,142 @@
 ---
 title: Navigation Drawer
 description: A sliding side panel that enables navigation between different sections and features within your application.
-publishedAt: 2025-08-03
-updatedAt: 2025-08-03
+publishedAt: 2025-08-10
+updatedAt: 2025-08-10
 ---
 
 # Navigation Drawer
 
 A sliding side panel that enables navigation between different sections and features within your application.
+
+## Usage
+
+```tsx
+import {
+  NavigationDrawer,
+  NavigationDrawerTrigger,
+  NavigationDrawerContent,
+  NavigationDrawerHeader,
+  NavigationDrawerTitle,
+  NavigationDrawerDescription,
+  NavigationDrawerGroup,
+  NavigationDrawerGroupLabel,
+  NavigationDrawerGroupContent,
+  NavigationDrawerMenu,
+  NavigationDrawerMenuItem,
+  NavigationDrawerMenuButton,
+  NavigationDrawerFooter,
+} from "@/ui/navigation-drawer"
+
+<NavigationDrawer>
+  <NavigationDrawerTrigger />
+  <NavigationDrawerContent>
+    <NavigationDrawerHeader>
+      <NavigationDrawerTitle>
+        Title
+      </NavigationDrawerTitle>
+      <NavigationDrawerDescription />
+    </NavigationDrawerHeader>
+
+    <NavigationDrawerGroup>
+      <NavigationDrawerGroupLabel>
+        Getting started
+      </NavigationDrawerGroupLabel>
+      <NavigationDrawerGroupContent>
+        <NavigationDrawerMenu>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              Introduction
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              Installation
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              Configuration
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+        </NavigationDrawerMenu>
+      </NavigationDrawerGroupContent>
+    </NavigationDrawerGroup>
+
+    <NavigationDrawerFooter>
+      Footer
+    </NavigationDrawerFooter>
+  </NavigationDrawerContent>
+</NavigationDrawer>
+```
+
+## Components
+
+- `NavigationDrawer`: Top‑level provider that controls open/close state.
+- `NavigationDrawerTrigger`: Button that opens the drawer. Optimized for mobile and hidden on larger screens by default.
+- `NavigationDrawerContent`: The sliding panel container with overlay and transitions.
+- `NavigationDrawerHeader`: Optional header area inside the drawer.
+- `NavigationDrawerTitle`: Title text for the drawer.
+- `NavigationDrawerDescription`: Visually hidden description for accessibility.
+- `NavigationDrawerGroup`: Wrapper for grouping related links.
+- `NavigationDrawerGroupLabel`: Label for a group.
+- `NavigationDrawerGroupContent`: Content area of a group.
+- `NavigationDrawerMenu`: List wrapper for navigation items.
+- `NavigationDrawerMenuItem`: Single list item.
+- `NavigationDrawerMenuButton`: Button‑style item used for navigation actions/links.
+- `NavigationDrawerFooter`: Footer area, typically for secondary actions.
+
+## Examples
+
+```tsx live=true
+<NavigationDrawer>
+  <NavigationDrawerTrigger />
+  <NavigationDrawerContent>
+    <NavigationDrawerHeader>
+      <NavigationDrawerTitle>
+        Title
+      </NavigationDrawerTitle>
+      <NavigationDrawerDescription />
+    </NavigationDrawerHeader>
+
+    <NavigationDrawerGroup>
+      <NavigationDrawerGroupLabel>
+        Documentation
+      </NavigationDrawerGroupLabel>
+      <NavigationDrawerGroupContent>
+        <NavigationDrawerMenu>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              <Link href="#">
+                Overview
+              </Link>
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              <Link href="#">
+                Guides
+              </Link>
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+          <NavigationDrawerMenuItem>
+            <NavigationDrawerMenuButton>
+              <Link href="#">
+                API
+              </Link>
+            </NavigationDrawerMenuButton>
+          </NavigationDrawerMenuItem>
+        </NavigationDrawerMenu>
+      </NavigationDrawerGroupContent>
+    </NavigationDrawerGroup>
+
+    <NavigationDrawerFooter>
+      <NavigationDrawerMenuButton>
+        <Link href="#">
+          Sign in
+        </Link>
+      </NavigationDrawerMenuButton>
+    </NavigationDrawerFooter>
+  </NavigationDrawerContent>
+</NavigationDrawer>
+```
