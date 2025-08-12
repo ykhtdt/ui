@@ -5,6 +5,7 @@ import { SidebarProvider } from "@workspace/ui/components/sidebar"
 import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
 import { ScrollToTopButton } from "@/components/scroll-top"
+import { MobileMenu } from "@/components/mobile-menu"
 
 export default function Layout({
   children,
@@ -29,6 +30,7 @@ export default function Layout({
         <header className="sticky top-0 z-50 w-full bg-background">
           <div className="w-full max-w-9xl mx-auto px-4 sm:px-2">
             <div className="h-(--header-height) flex items-center gap-2">
+              <MobileMenu />
               <ModeToggle />
             </div>
           </div>
