@@ -32,13 +32,13 @@ const components: MDXContentProps["components"] = {
   ),
   h2: (props: React.ComponentProps<"h2">) => (
     <h2
-      className="scroll-m-10 mt-12 text-2xl font-semibold tracking-tight"
+      className="scroll-m-14 mt-12 text-2xl font-semibold tracking-tight"
       {...props}
     />
   ),
   h3: (props: React.ComponentProps<"h3">) => (
     <h3
-      className="scroll-m-10 mt-8 text-xl font-medium tracking-tight"
+      className="scroll-m-14 mt-8 text-xl font-medium tracking-tight"
       {...props}
     />
   ),
