@@ -1,11 +1,11 @@
 @import "@workspace/ui/globals.css";
 
 :root {
-  --page-background: oklch(0.85 0.05 90);
+  --page-background: oklch(0.87 0.01 240);
 }
 
 .dark {
-  --page-background: oklch(0.125 0.05 90);
+  --page-background: oklch(0.22 0.005 240);
 }
 
 @theme {
