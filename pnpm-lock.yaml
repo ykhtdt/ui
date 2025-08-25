@@ -71,6 +71,9 @@ importers:
       shiki:
         specifier: ^3.8.1
         version: 3.8.1
+      sucrase:
+        specifier: ^3.35.0
+        version: 3.35.0
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
