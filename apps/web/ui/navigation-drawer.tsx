@@ -25,7 +25,7 @@ const NavigationDrawerTrigger = ({
     <NavigationDrawerPrimitive.Trigger
       asChild
       data-slot="navigation-drawer-trigger"
-      className={cn("md:hidden hover:bg-transparent dark:hover:bg-transparent", className)}
+      className={cn("cursor-pointer md:hidden hover:bg-transparent dark:hover:bg-transparent", className)}
       {...props}
     >
       <Button variant="ghost" size="icon" className="size-5">
