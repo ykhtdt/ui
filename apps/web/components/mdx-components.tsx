@@ -1,11 +1,20 @@
 "use client"
 
-import React from "react"
+import * as React from "react"
 
 import {
   getMDXComponent,
   type MDXContentProps,
 } from "mdx-bundler/client"
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@workspace/ui/components/tabs"
+
+import { liveCodeScope } from "@/lib/live-scope"
 
 import { LiveCode } from "./live-code"
 
@@ -62,7 +71,39 @@ const components: MDXContentProps["components"] = {
   ),
   code: (props: React.ComponentProps<"code"> & { "data-live"?: string }) => {
     if (props["data-live"] === "true") {
-      return <LiveCode {...props} />
+      return (
+        <Tabs defaultValue="preview" className="flex flex-1">
+          <TabsList className="rounded-md bg-transparent p-0">
+            <TabsTrigger
+              value="preview"
+              className="border-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-transparent data-[state=active]:text-foreground text-muted-foreground dark:data-[state=active]:bg-transparent dark:data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:text-foreground dark:text-muted-foreground"
+            >
+              Preview
+            </TabsTrigger>
+            <TabsTrigger
+              value="code"
+              className="border-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-transparent data-[state=active]:text-foreground text-muted-foreground dark:data-[state=active]:bg-transparent dark:data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:text-foreground dark:text-muted-foreground"
+            >
+              Code
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="preview" className="flex flex-1">
+            <div className="flex flex-col w-full items-center justify-center rounded-md border">
+              <LiveCode
+                scope={liveCodeScope}
+                code={childrenText(props.children) ?? ""}
+              />
+            </div>
+          </TabsContent>
+          <TabsContent value="code" className="flex flex-1 overflow-y-auto rounded-md bg-muted">
+            <div className="flex flex-1 min-w-0 overflow-hidden">
+              <pre className="w-0 flex-1 p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono">
+                <code {...props} />
+              </pre>
+            </div>
+          </TabsContent>
+        </Tabs>
+      )
     }
 
     return (
@@ -96,4 +137,26 @@ const components: MDXContentProps["components"] = {
       </div>
     )
   },
+}
+
+const childrenText = (children?: unknown): string | null => {
+  if (isReactElementWithChildren(children)) {
+    return childrenText(children.props?.children)
+  }
+
+  if (Array.isArray(children)) {
+    return children.map(childrenText).flat().filter(Boolean).join("")
+  }
+
+  if (typeof children === "string") {
+    return children
+  }
+
+  return null
+}
+
+const isReactElementWithChildren = (
+  element?: unknown,
+): element is React.ReactElement<{ children: React.ReactNode }> => {
+  return React.isValidElement(element) && !!(element.props as any).children
 }

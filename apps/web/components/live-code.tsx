@@ -1,111 +1,144 @@
-import React from "react"
+"use client"
 
-import {
-  LiveProvider,
-  LivePreview,
-  LiveError,
-} from "react-live"
+import * as React from "react"
 
-import { cn } from "@workspace/ui/lib/utils"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@workspace/ui/components/tabs"
+import { transform as sucraseTransform } from "sucrase"
 
-import { liveCodeScope } from "@/lib/live-scope"
-import { NavigationDrawerTrigger as BaseNavigationDrawerTrigger } from "@/ui/navigation-drawer"
+import { ErrorBoundary } from "./error-boundary"
 
-interface LiveCodeProps extends React.ComponentProps<"code"> {
-  "data-live"?: string
-}
-
-const DemoNavigationDrawerTrigger = (
-  { className, ...props }: React.ComponentProps<typeof BaseNavigationDrawerTrigger>
-) => {
-  return (
-    <BaseNavigationDrawerTrigger
-      className={cn("md:!inline-flex", className)}
-      {...props}
-    />
-  )
-}
-
-const scope = {
-  ...liveCodeScope,
-  NavigationDrawerTrigger: DemoNavigationDrawerTrigger,
+interface LiveCodeProps {
+  code?: string
+  scope?: Record<string, unknown>
+  onRender?: (error: Error | undefined) => void
 }
 
 export const LiveCode = ({
-  children,
-  ...rest
+  code = "",
+  scope = {},
+  onRender = () => undefined,
 }: LiveCodeProps) => {
-  const hasChildrenProp = React.useCallback((props: unknown): props is { children: React.ReactNode } => {
-    return props !== null && typeof props === "object" && "children" in props
-  }, [])
+  const currentError = React.useRef<Error | undefined>(undefined)
+  const setCurrentError = (error: Error | undefined) => {
+    return currentError.current = error
+  }
 
-  const extractCode = React.useCallback((children: React.ReactNode): string => {
-    if (typeof children === "string") {
-      return children
+  setCurrentError(undefined)
+
+  React.useLayoutEffect(() => {
+    onRender(currentError.current)
+  }, [onRender])
+
+  try {
+    const transformedCode = transform(code)
+    const Preview = evaluate(transformedCode, {
+      internal__onError: setCurrentError,
+      ...scope,
+    })
+
+    if (!Preview || Object(Preview) !== Preview) {
+      return (
+        <>
+          {Preview}
+        </>
+      )
     }
 
-    if (Array.isArray(children)) {
-      return children.map(child => {
-        if (typeof child === "string") {
-          return child
-        }
-
-        if (React.isValidElement(child) && hasChildrenProp(child.props)) {
-          return extractCode(child.props.children)
-        }
-
-        return ""
-      }).join("")
-    }
-
-    if (React.isValidElement(children) && hasChildrenProp(children.props)) {
-      return extractCode(children.props.children)
-    }
-
-    return ""
-  }, [hasChildrenProp])
-
-  const code = extractCode(children)
-
-  return (
-    <Tabs defaultValue="preview" className="flex flex-1">
-      <TabsList className="rounded-md bg-transparent p-0">
-        <TabsTrigger
-          value="preview"
-          className="border-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-transparent data-[state=active]:text-foreground text-muted-foreground dark:data-[state=active]:bg-transparent dark:data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:text-foreground dark:text-muted-foreground"
+    if (React.isValidElement(Preview)) {
+      return (
+        <ErrorBoundary
+          key={transformedCode}
+          onError={(error) => setCurrentError(error)}
         >
-          Preview
-        </TabsTrigger>
-        <TabsTrigger
-          value="code"
-          className="border-0 data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:border-transparent data-[state=active]:text-foreground text-muted-foreground dark:data-[state=active]:bg-transparent dark:data-[state=active]:shadow-none dark:data-[state=active]:border-transparent dark:data-[state=active]:text-foreground dark:text-muted-foreground"
+          {Preview}
+        </ErrorBoundary>
+      )
+    }
+
+    if (typeof Preview === "function") {
+      return (
+        <ErrorBoundary
+          key={transformedCode}
+          onError={(error) => setCurrentError(error)}
         >
-          Code
-        </TabsTrigger>
-      </TabsList>
-      <TabsContent value="preview" className="flex flex-1">
-        <div className="flex flex-col w-full items-center justify-center rounded-md border">
-          <LiveProvider code={code} scope={scope}>
-            <LivePreview className="min-h-0" />
-            <LiveError className="mt-2 text-red-500 text-sm font-mono bg-red-50 dark:bg-red-950 p-2 rounded border" />
-          </LiveProvider>
-        </div>
-      </TabsContent>
-      <TabsContent value="code" className="flex flex-1 overflow-y-auto rounded-md bg-muted">
-        <div className="flex flex-1 min-w-0 overflow-hidden">
-          <pre className="w-0 flex-1 p-4 overflow-x-auto font-mono text-sm [&>code]:text-sm [&>code]:font-mono">
-            <code {...rest}>
-              {children}
-            </code>
-          </pre>
-        </div>
-      </TabsContent>
-    </Tabs>
-  )
+          <Preview />
+        </ErrorBoundary>
+      )
+    }
+  } catch (error) {
+    setCurrentError(error as Error)
+  }
+
+  return null
+}
+
+const evaluate = (code = "", scope: Record<string, unknown> = {}) => {
+  const scopeKeys = Object.keys(scope)
+  const scopeValues = scopeKeys.map((key) => scope[key])
+
+  const fn = new Function("React", ...scopeKeys, code)
+  const result = fn(React, ...scopeValues)
+
+  return injectReactClassComponentPrototype(result, code)
+}
+
+const transform = (code = "") => {
+  const expression = code.trim().replace(/;$/, "")
+
+  if (expression) {
+    const withoutImports = removeImports(expression)
+    const withFragment = injectFragment(withoutImports)
+    const withReturn = injectReturnTryCatch(withFragment)
+    const transformed = sucraseTransform(withReturn, {
+      transforms: ["jsx", "typescript"],
+    }).code
+
+    return transformed
+  }
+
+  return ""
+}
+
+const injectFragment = (code = "") => {
+  return /^<[^]*>$/m.test(code) ? `<>${code}</>` : code
+}
+
+const injectReturnTryCatch = (code = "") => {
+  let regexp: RegExp
+  const catchBlock = "catch (error) { internal__onError(error) return null }"
+
+  regexp = /^(class\s+)(\w+)(\s+extends\s+React\.Component)(\s*\{[^]+)/m
+  if (regexp.test(code)) {
+    return code.replace(regexp, `return (function $2 () { try { ${code} return new $2() } ${catchBlock} })`)
+  }
+
+  regexp = /^(function(\s+\w*\s*)?\([^]*?\)\s*\{)([^]+)(\})/m
+  if (regexp.test(code)) {
+    return code.replace(regexp, `return ($1 try { $3 } ${catchBlock} })`)
+  }
+
+  regexp = /^((?:\([^]*?\)|\w+)\s*=>\s*\{)([^]+)(\})/m
+  if (regexp.test(code)) {
+    return code.replace(regexp, `return ($1 try { $2 } ${catchBlock} })`)
+  }
+
+  regexp = /^((?:\([^]*?\)|\w+)\s*=>\s*)([^]+)/m
+  if (regexp.test(code)) {
+    return code.replace(regexp, `return ($1 { try { return $2 } ${catchBlock}})`)
+  }
+
+  return `return (${code})`
+}
+
+const injectReactClassComponentPrototype = (fn: () => null, code = "") => {
+  const regexp = /(class\s+)(\w+)(\s+extends\s+React\.Component)(\s*\{[^]+)/m
+
+  if (regexp.test(code)) {
+    fn.prototype = React.Component.prototype
+  }
+
+  return fn
+}
+
+const removeImports = (code = "") => {
+  return code.replace(/^(import .+?|'|")$/gms, "")
 }
