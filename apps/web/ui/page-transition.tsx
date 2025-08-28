@@ -110,29 +110,6 @@ export const NextJSAppRouterPageTransitionLayout = ({
   )
 }
 
-/**
- * 개별 페이지에서 사용하는 hooks
- */
-export const useNextJSAppRouterPageTransition = (
-  transitionProps?: Omit<PageTransitionProps, "pageKey" | "children">
-) => {
-  const pathname = usePathname()
-
-  const TransitionWrapper = React.useCallback(
-    ({ children }: { children: React.ReactNode }) => (
-      <PageTransition pageKey={pathname} {...transitionProps}>
-        {children}
-      </PageTransition>
-    ),
-    [pathname, transitionProps]
-  )
-
-  return {
-    TransitionWrapper,
-    pathname,
-  }
-}
-
 export interface PageTransitionProps {
   children: React.ReactNode
   className?: string
