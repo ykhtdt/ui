@@ -20,6 +20,16 @@ export const navigationItems: NavigationItem[] = [
     ],
   },
   {
+    title: "Animations",
+    url: "/docs/animations",
+    children: [
+      {
+        title: "Page Transition",
+        url: "/docs/animations/page-transition",
+      },
+    ],
+  },
+  {
     title: "Layouts",
     url: "/docs/layouts",
   },
