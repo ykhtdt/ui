@@ -12,26 +12,23 @@ import { MobileMenu } from "@/components/mobile-menu"
 
 const animationVariants: Variants = {
   initial: {
+    clipPath: "circle(0% at 50% 50%)",
     opacity: 0,
-    y: "2rem",
-    filter: "blur(0.5rem)",
   },
   enter: {
+    clipPath: "circle(150% at 50% 50%)",
     opacity: 1,
-    y: 0,
-    filter: "blur(0rem)",
     transition: {
-      duration: 0.5,
+      duration: 0.8,
       ease: "easeOut",
     },
   },
   exit: {
+    clipPath: "circle(0% at 50% 50%)",
     opacity: 0,
-    y: "-2rem",
-    filter: "blur(0.5rem)",
     transition: {
-      duration: 0.25,
-      ease: "easeOut",
+      duration: 0.4,
+      ease: "easeIn",
     },
   },
 }
