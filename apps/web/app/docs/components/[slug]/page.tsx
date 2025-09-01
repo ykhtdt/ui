@@ -8,6 +8,8 @@ import {
 
 import { MDXComponents } from "@/components/mdx-components"
 
+const toLeafSlug = (input: string) => (input.replace(/\\/g, "/").split("/").pop() || "")
+
 export default async function Page({
   params
 }: {
@@ -34,9 +36,7 @@ export async function generateMetadata({
   const { slug } = await params
 
   const frontmatters = getAllFrontmatter("components")
-  const frontmatter = frontmatters.find(
-    (frontmatter) => (frontmatter.slug.split("/").pop() || "") === slug
-  )
+  const frontmatter = frontmatters.find((frontmatter) => toLeafSlug(frontmatter.slug) === slug)
 
   return {
     title: frontmatter?.title,
@@ -48,6 +48,6 @@ export const generateStaticParams = async () => {
   const frontmatters = getAllFrontmatter("components")
 
   return frontmatters.map((frontmatter) => ({
-    slug: frontmatter.slug.split("/").pop() || "",
+    slug: toLeafSlug(frontmatter.slug),
   }))
 }
