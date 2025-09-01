@@ -24,8 +24,8 @@ export const navigationItems: NavigationItem[] = [
     url: "/docs/animations",
     children: [
       {
-        title: "Page Transition",
-        url: "/docs/animations/page-transition",
+        title: "Router Transition",
+        url: "/docs/animations/router-transition",
       },
     ],
   },

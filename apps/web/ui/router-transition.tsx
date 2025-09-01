@@ -11,7 +11,7 @@ import {
 
 import { cn } from "@workspace/ui/lib/utils"
 
-export interface NextJSAppRouterPageTransitionProps extends Omit<PageTransitionProps, "pageKey"> {
+export interface NextAppRouterTransitionProps extends Omit<RouterTransitionProps, "pageKey"> {
   /**
    * 애니메이션을 제외할 경로 - 이 경로들에서는 애니메이션이 실행되지 않음
    */
@@ -22,11 +22,11 @@ export interface NextJSAppRouterPageTransitionProps extends Omit<PageTransitionP
  * Next.js App Router용 페이지 전환 애니메이션 컴포넌트
  * usePathname 훅을 사용하여 경로 변화를 자동으로 감지하고 페이지 전환 애니메이션을 실행
  */
-export const NextJSAppRouterPageTransition = ({
+export const NextAppRouterTransition = ({
   children,
   excludePaths = [],
   ...props
-}: NextJSAppRouterPageTransitionProps) => {
+}: NextAppRouterTransitionProps) => {
   const pathname = usePathname()
 
   const isExcluded = excludePaths.some((path) => path.endsWith("*")
@@ -41,9 +41,9 @@ export const NextJSAppRouterPageTransition = ({
   }
 
   return (
-    <PageTransition pageKey={pathname} {...props}>
+    <RouterTransition pageKey={pathname} {...props}>
       {children}
-    </PageTransition>
+    </RouterTransition>
   )
 }
 
@@ -52,7 +52,7 @@ export const NextJSAppRouterPageTransition = ({
  * 
  * 이 컴포넌트를 루트 레이아웃에서 사용하여 전체 앱에 페이지 전환 애니메이션을 적용 가능
  */
-export interface NextJSAppRouterPageTransitionLayoutProps {
+export interface NextAppRouterTransitionLayoutProps {
   children: React.ReactNode
   /**
    * 애니메이션을 제외할 경로들
@@ -73,11 +73,11 @@ export interface NextJSAppRouterPageTransitionLayoutProps {
   pathAnimations?: Record<string, Variants>
 }
 
-export const NextJSAppRouterPageTransitionLayout = ({
+export const NextAppRouterTransitionLayout = ({
   children,
   pathAnimations = {},
   excludePaths = [],
-}: NextJSAppRouterPageTransitionLayoutProps) => {
+}: NextAppRouterTransitionLayoutProps) => {
   const pathname = usePathname()
 
   const getAnimationVariants = React.useMemo((): Variants | undefined => {
@@ -103,14 +103,14 @@ export const NextJSAppRouterPageTransitionLayout = ({
 
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <NextJSAppRouterPageTransition key={pathname} {...transitionProps}>
+      <NextAppRouterTransition key={pathname} {...transitionProps}>
         {children}
-      </NextJSAppRouterPageTransition>
+      </NextAppRouterTransition>
     </AnimatePresence>
   )
 }
 
-export interface PageTransitionProps {
+export interface RouterTransitionProps {
   children: React.ReactNode
   className?: string
   /**
@@ -132,14 +132,14 @@ export interface PageTransitionProps {
   onAnimationComplete?: () => void
 }
 
-export const PageTransition = ({
+export const RouterTransition = ({
   children,
   pageKey,
   animationVariants,
   initial = true,
   className,
   onAnimationComplete,
-}: PageTransitionProps) => {
+}: RouterTransitionProps) => {
 
   return (
     <motion.div

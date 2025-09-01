@@ -3,7 +3,7 @@ import { ArrowUpIcon } from "lucide-react"
 
 import { SidebarProvider } from "@workspace/ui/components/sidebar"
 
-import { NextJSAppRouterPageTransitionLayout } from "@/ui/page-transition"
+import { NextAppRouterTransitionLayout } from "@/ui/router-transition"
 
 import { ModeToggle } from "@/components/mode-toggle"
 import { DocsSidebar } from "@/components/docs-sidebar"
@@ -37,7 +37,7 @@ const animationVariants: Variants = {
 }
 
 const PATH_ANIMATIONS = {
-  "/docs/animations/page-transition": animationVariants
+  "/docs/animations/router-transition": animationVariants
 }
 
 export default function Layout({
@@ -48,7 +48,7 @@ export default function Layout({
   toc: React.ReactNode
 }) {
   return (
-    <NextJSAppRouterPageTransitionLayout pathAnimations={PATH_ANIMATIONS}>
+    <NextAppRouterTransitionLayout pathAnimations={PATH_ANIMATIONS}>
       <div className="fixed inset-0 p-1">
         <div
           id="container"
@@ -109,6 +109,6 @@ export default function Layout({
           </footer>
         </div>
       </div>
-    </NextJSAppRouterPageTransitionLayout>
+    </NextAppRouterTransitionLayout>
   )
 }
